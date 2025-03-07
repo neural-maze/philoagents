@@ -231,7 +231,6 @@ export class Game extends Scene
             speed: 0.5,
         });
         
-        // Remove the L key toggle functionality
         this.labelsVisible = true;
         
         // Add ESC key for pause menu
@@ -304,10 +303,7 @@ export class Game extends Scene
 
         this.player.body.velocity.normalize().scale(speed);
 
-        // Store the velocity after physics calculations
         const currentVelocity = this.player.body.velocity.clone();
-        
-        // Check if player is actually moving (not blocked)
         const isMoving = Math.abs(currentVelocity.x) > 0 || Math.abs(currentVelocity.y) > 0;
         
         if (this.cursors.left.isDown && isMoving) {

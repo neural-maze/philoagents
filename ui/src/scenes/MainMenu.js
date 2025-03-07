@@ -10,10 +10,9 @@ export class MainMenu extends Scene {
         this.add.image(510, 260, 'logo').setScale(0.55);
 
         const centerX = this.cameras.main.width / 2;
-        const startY = 524; // Base position for first button
-        const buttonSpacing = 70; // Space between buttons
+        const startY = 524;
+        const buttonSpacing = 70;
 
-        // Main menu buttons
         this.createButton(centerX, startY, 'Let\'s Play!', () => {
             this.scene.start('Game');
         });
@@ -34,12 +33,10 @@ export class MainMenu extends Scene {
         const maxFontSize = 28;
         const padding = 10;
 
-        // Create shadow
         const shadow = this.add.graphics();
         shadow.fillStyle(0x666666, 1);
         shadow.fillRoundedRect(x - buttonWidth / 2 + 4, y - buttonHeight / 2 + 4, buttonWidth, buttonHeight, cornerRadius);
 
-        // Create button
         const button = this.add.graphics();
         button.fillStyle(0xffffff, 1);
         button.fillRoundedRect(x - buttonWidth / 2, y - buttonHeight / 2, buttonWidth, buttonHeight, cornerRadius);
@@ -48,7 +45,6 @@ export class MainMenu extends Scene {
             Phaser.Geom.Rectangle.Contains
         );
 
-        // Create text with appropriate size
         let fontSize = maxFontSize;
         let buttonText;
         do {
@@ -64,7 +60,6 @@ export class MainMenu extends Scene {
             fontSize -= 1;
         } while (buttonText.width > buttonWidth - padding && fontSize > 10);
 
-        // Button hover effects
         button.on('pointerover', () => {
             this.updateButtonStyle(button, shadow, x, y, buttonWidth, buttonHeight, cornerRadius, true);
             buttonText.y -= 2;
@@ -103,29 +98,24 @@ export class MainMenu extends Scene {
         const centerX = width / 2;
         const centerY = height / 2;
         
-        // Create overlay and panel
         const elements = this.createInstructionPanel(centerX, centerY);
         
-        // Add instruction content
         const instructionContent = this.addInstructionContent(centerX, centerY, elements.panel);
         elements.title = instructionContent.title;
         elements.textElements = instructionContent.textElements;
         
-        // Add close button
         const closeElements = this.addCloseButton(centerX, centerY + 70, () => {
             this.destroyInstructionElements(elements);
         });
         elements.closeButton = closeElements.button;
         elements.closeText = closeElements.text;
         
-        // Close on overlay click
         elements.overlay.on('pointerdown', () => {
             this.destroyInstructionElements(elements);
         });
     }
     
     createInstructionPanel(centerX, centerY) {
-        // Create a semi-transparent background
         const overlay = this.add.graphics();
         overlay.fillStyle(0x000000, 0.7);
         overlay.fillRect(0, 0, this.cameras.main.width, this.cameras.main.height);
@@ -134,7 +124,6 @@ export class MainMenu extends Scene {
             Phaser.Geom.Rectangle.Contains
         );
         
-        // Create a panel for the instructions
         const panel = this.add.graphics();
         panel.fillStyle(0xffffff, 1);
         panel.fillRoundedRect(centerX - 200, centerY - 150, 400, 300, 20);
@@ -145,7 +134,6 @@ export class MainMenu extends Scene {
     }
     
     addInstructionContent(centerX, centerY, panel) {
-        // Add title
         const title = this.add.text(centerX, centerY - 120, 'INSTRUCTIONS', {
             fontSize: '28px',
             fontFamily: 'Arial',
@@ -153,7 +141,6 @@ export class MainMenu extends Scene {
             fontStyle: 'bold'
         }).setOrigin(0.5);
         
-        // Add instruction text
         const instructions = [
             'Arrow keys for moving',
             'SPACE for talking to philosophers',
@@ -177,8 +164,7 @@ export class MainMenu extends Scene {
     }
     
     addCloseButton(x, y, callback) {
-        // Move the button higher up instead of lower
-        const adjustedY = y + 10; // Changed from +30 to -30 to move button up
+        const adjustedY = y + 10;
         
         const buttonWidth = 120;
         const buttonHeight = 40;
@@ -197,7 +183,6 @@ export class MainMenu extends Scene {
             fontStyle: 'bold'
         }).setOrigin(0.5);
         
-        // Make close button interactive
         closeButton.setInteractive(
             new Phaser.Geom.Rectangle(x - buttonWidth / 2, adjustedY - buttonHeight / 2, buttonWidth, buttonHeight),
             Phaser.Geom.Rectangle.Contains
@@ -225,15 +210,12 @@ export class MainMenu extends Scene {
     }
     
     destroyInstructionElements(elements) {
-        // Clean up all created elements
         elements.overlay.destroy();
         elements.panel.destroy();
         elements.title.destroy();
         
-        // Destroy all instruction text elements
         elements.textElements.forEach(text => text.destroy());
         
-        // Destroy close button elements
         elements.closeButton.destroy();
         elements.closeText.destroy();
     }
