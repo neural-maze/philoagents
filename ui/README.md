@@ -1,6 +1,6 @@
 # PhiloAgents Town 📖
 
-![Philosopher Town](public/assets/philoagents_town.png)
+![Philosopher Town](public/assets/game_screenshot.png)
 
 PhiloAgents Town is the interactive UI component that allows you to engage in philosophical discussions with the Philosopher Agents. Discuss consciousness with Descartes, question Leibniz on logic, or challengue Chomsky on language. 
 
