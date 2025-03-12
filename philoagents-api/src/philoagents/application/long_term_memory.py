@@ -45,7 +45,9 @@ class LongTermMemoryCreator:
 
             self.retriever.vectorstore.add_documents(chunked_docs)
 
+        logger.info("Creating indexes...")
         self.__create_index()
+        logger.info("Indexes created.")
 
     def __create_index(self) -> None:
         with MongoClientWrapper(

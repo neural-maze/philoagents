@@ -21,7 +21,10 @@ class MongoIndex:
 
         vectorstore.create_vector_search_index(
             dimensions=embedding_dim,
+            filters=[{"type": "filter", "path": "philosopher_id"}],
+            update=True,
         )
+
         if is_hybrid:
             create_fulltext_search_index(
                 collection=self.mongodb_client.collection,
